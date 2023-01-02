@@ -1,9 +1,9 @@
 import { useEspStore } from '@/store/espStore';
 import { useDataStore } from '@/store/dataStore';
 
-const serviceUUID = '435d12e8-6497-4426-8b89-6d1c59f10bf7';
-const bleCharacteristicTX = '88b8a26c-cfbb-44d9-97bf-e7b76558dfc0';
-const bleCharacteristicRX = 'cb617589-41eb-4566-9954-7589dd923378';
+const serviceUUID = '06cd0a01-f2af-4739-83ac-2be012508cd6';
+const bleCharacteristicTX = '4a59aa02-2178-427b-926a-ff86cfb87571';
+const bleCharacteristicRX = '068e8403-583a-41f2-882f-8b0a218ab77b';
 let writeGATTCharacteristic = null;
 const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
@@ -52,7 +52,7 @@ export async function connectToESP() {
     const options = {
       optionalServices: [serviceUUID],
       filters: [
-        { name: 'OpenX-Plants' },
+        { name: 'OpenX-ETP-Inst' },
       ],
     };
 

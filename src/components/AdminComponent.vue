@@ -1,44 +1,5 @@
-<script>
-import { mapWritableState } from 'pinia'
-import { useDataStore } from '@/store/dataStore';
-import PlantSettings from '@/components/PlantSettings.vue';
-import BleStatus from '@/components/BleStatus.vue';
-import { sendSettingsToEsp } from '@/espConnection';
-
-export default {
-  components: {
-    BleStatus,
-    PlantSettings,
-  },
-  computed: {
-    ...mapWritableState(useDataStore, ['plants', 'settings']),
-  },
-  methods: {
-    logout() {
-      // TODO: stuff
-    },
-    async save() {
-      try {
-        await sendSettingsToEsp();
-      } catch (e) {
-        alert(e.message);
-      }
-    },
-  },
-};
-</script>
-
 <template>
   <div>
-    <nav class="d-flex justify-content-between">
-      <h1>
-        <b>Open</b>Admin
-      </h1>
-      <button class="btn" onclick="logout()">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-      </button>
-    </nav>
-    <BleStatus/>
     <form>
       <section>
         <h1>
@@ -46,11 +7,7 @@ export default {
         </h1>
         <hr>
         <!-- Foreach plant -->
-        <PlantSettings v-for="(plant, i) in plants"
-                       :key="i"
-                       :index="i"
-                       :value="plant"
-        />
+        <PlantSettings v-for="(plant, i) in plants" :key="i" :index="i" :value="plant" />
         <!-- End foreach -->
       </section>
       <section>
@@ -100,3 +57,30 @@ export default {
     </form>
   </div>
 </template>
+
+<script>
+  import { mapWritableState } from 'pinia'
+  import { useDataStore } from '@/store/dataStore';
+  import PlantSettings from '@/components/PlantSettings.vue';
+  import { sendSettingsToEsp } from '@/espConnection';
+
+  export default {
+    components: {
+      PlantSettings,
+    },
+
+    computed: {
+      ...mapWritableState(useDataStore, ['plants', 'settings']),
+    },
+
+    methods: {
+      async save() {
+        try {
+          await sendSettingsToEsp();
+        } catch (e) {
+          alert(e.message);
+        }
+      },
+    },
+  };
+</script>

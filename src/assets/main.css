@@ -4,6 +4,11 @@
   font-weight: 400;
 }
 
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
 a {
   text-decoration: none;
 }
@@ -18,7 +23,7 @@ section {
 }
 
 h1 {
-  font-size: 50px;
+  font-size: 24px;
   font-weight: 400;
 }
 
@@ -58,12 +63,12 @@ a[aria-expanded="true"] > i {
 nav {
   background-color: #A5D19E;
   border-bottom: 1px solid #EEEEEE;
-  height: 120px;
+  height: 55px;
 }
 
 nav > h1 {
-  margin-left: 35px;
-  padding-top: 34px;
+  margin-left: 30px;
+  padding-top: 14px;
 }
 
 nav > button {

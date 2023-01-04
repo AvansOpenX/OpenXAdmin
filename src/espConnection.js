@@ -9,8 +9,8 @@ let settingsCharacteristic = null;
 let device = null;
 
 const onDisconnected = () => {
-  const espStore = useEspStore();
-  espStore.connected = false;
+  // const espStore = useEspStore();
+  // espStore.connected = false;
 };
 
 async function readSettings() {

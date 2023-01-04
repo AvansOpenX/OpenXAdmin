@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { createPinia } from 'pinia'
+import { createPinia } from 'pinia';
 import AdminComponent from './components/AdminComponent.vue';
 import HeaderComponent from './components/HeaderComponent.vue';
 

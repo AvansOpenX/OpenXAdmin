@@ -14,8 +14,8 @@
             <h2>(hoger is vochtiger)</h2>
           </div>
           <div class="d-flex flex-row gap-2 align-items-center">
-            <input type="number" class="rounded" v-model="plant.moistureLimit" />
-            <input type="number" class="rounded" disabled v-model="plant.moistureValue" />
+            <input type="number" class="rounded form-control" v-model="plant.moistureLimit" />
+            <input type="number" class="rounded form-control" disabled v-model="plant.moistureValue" />
           </div>
         </div>
         <div>
@@ -24,7 +24,7 @@
             <h2>(hoger is meer water)</h2>
           </div>
           <div class="d-flex flex-row gap-2 align-items-center">
-            <input type="number" class="rounded" v-model="plant.valveFlow" />
+            <input type="number" class="rounded form-control" v-model="plant.valveFlow" />
             <p class="mb-0">Procent</p>
           </div>
         </div>

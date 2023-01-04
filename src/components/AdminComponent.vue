@@ -16,28 +16,28 @@
         <div>
           <h2>Meet interval</h2>
           <div class="d-flex flex-row gap-2 align-items-center">
-            <input type="number" class="rounded" v-model="settings.mInterval" />
+            <input type="number" class="rounded form-control" v-model="settings.mInterval" />
             <p class="mb-0">Seconden</p>
           </div>
         </div>
         <div>
           <h2>Spelduur</h2>
           <div class="d-flex flex-row gap-2 align-items-center">
-            <input type="number" class="rounded" v-model="settings.gameDuration" />
+            <input type="number" class="rounded form-control" v-model="settings.gameDuration" />
             <p class="mb-0">Seconden</p>
           </div>
         </div>
         <div>
           <h2>Reservoir kraan</h2>
           <div class="d-flex flex-row gap-2 align-items-center">
-            <input type="number" class="rounded" v-model="settings.rValveFlow" />
+            <input type="number" class="rounded form-control" v-model="settings.rValveFlow" />
             <p class="mb-0">Procent</p>
           </div>
         </div>
         <div>
           <h2>Data verzend interval</h2>
           <div class="d-flex flex-row gap-2 align-items-center">
-            <input type="number" class="rounded" v-model="settings.tInterval" />
+            <input type="number" class="rounded form-control" v-model="settings.tInterval" />
             <p class="mb-0">Minuten</p>
           </div>
         </div>
@@ -50,20 +50,20 @@
         <div>
           <h2>SSID</h2>
           <div class="d-flex flex-row gap-2 align-items-center">
-            <input type="text" class="rounded w-100" maxlength="32" v-model="settings.ssid" />
+            <input type="text" class="rounded form-control w-100" maxlength="32" v-model="settings.ssid" />
           </div>
         </div>
         <div>
           <h2>Wachtwoord</h2>
           <div class="d-flex flex-row gap-2 align-items-center">
-            <input type="text" class="rounded w-100" maxlength="32" v-model="settings.pass" />
+            <input type="text" class="rounded form-control w-100" maxlength="32" v-model="settings.pass" />
           </div>
         </div>
       </div>
-      <p class="mb-0 mt-1 disclaimer-text">* Installatie wordt automatish herstart na het doorvoeren van wijzigingen in deze categorie</p>
+      <p class="mb-0 mt-1 disclaimer-text">* Systeem wordt automatish herstart na het doorvoeren van wijzigingen in deze categorie</p>
     </section>
   </div>
-  <button id="save-button" type="button" :class="{ show: true }" class="btn btn-success rounded-circle shadow" @click="save">
+  <button id="saveButton" type="button" :class="{ show: true }" class="btn text-white rounded-circle shadow" @click="save">
     <i class="fa-solid fa-check"></i>
   </button>
 </template>

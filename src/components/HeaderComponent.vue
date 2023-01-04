@@ -3,7 +3,7 @@
     <h1>
         <b>Open</b>Admin
     </h1>
-    <button v-if="espStore.connected" class="btn" onclick="logout()">
+    <button v-if="espStore.connected" class="btn" @click="closeConnection">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
     </button>
     </nav>
@@ -11,6 +11,7 @@
 
 <script>
     import { useEspStore } from '@/store/espStore';
+    import { disconnectDevice } from '@/espConnection';
 
     export default {
         setup() {
@@ -22,8 +23,8 @@
         },
 
         methods: {
-            logout() {
-
+            closeConnection() {
+                disconnectDevice();
             },
         },
     }

@@ -2,47 +2,47 @@ import { useEspStore } from '@/store/espStore';
 import { useDataStore } from '@/store/dataStore';
 
 const serviceUUID = '06cd0a01-f2af-4739-83ac-2be012508cd6';
-const bleCharacteristicTX = '4a59aa02-2178-427b-926a-ff86cfb87571';
-const bleCharacteristicRX = '068e8403-583a-41f2-882f-8b0a218ab77b';
-let writeGATTCharacteristic = null;
+const settingsCharacteristicUUID = '4a59aa02-2178-427b-926a-ff86cfb87571';
 const textDecoder = new TextDecoder();
 const textEncoder = new TextEncoder();
+let settingsCharacteristic = null;
+let device = null;
 
 const onDisconnected = () => {
-  console.log('Disconnect handler');
+  const espStore = useEspStore();
+  espStore.connected = false;
 };
 
-export async function sendSettingsToEsp() {
-  // TODO: move below connected when done
-  const dataStore = useDataStore();
-
-  console.log('Sending to ESP', JSON.stringify({
-    plants: dataStore.plants,
-    settings: dataStore.settings,
-  }));
-
+async function readSettings() {
   const espStore = useEspStore();
+  const dataStore = useDataStore();
+  // Throw error if no BLE device is connected
+  if (!espStore.connected) throw new Error('Not connected to ESP');
+  // Retrieve the values from the BLE device
+  let rawValue = await settingsCharacteristic.readValue();
+  const value = textDecoder.decode(rawValue);
+  // Parse the values and save them in the data store
+  dataStore.settings = JSON.parse(value);
+};
 
-  if (!espStore.connected) {
-    throw new Error('Not connected to ESP');
-  }
-
-  const toSend = textEncoder.encode(JSON.stringify({
-    plants: dataStore.plants,
-    settings: dataStore.settings,
-  }));
-
-  await writeGATTCharacteristic.writeValue(toSend);
+export async function writeSettings() {
+  const espStore = useEspStore();
+  // Throw error if no BLE device is connected
+  if (!espStore.connected) throw new Error('Not connected to ESP');
+  // Grab and format the values to be sent
+  const dataStore = useDataStore();
+  let value = JSON.stringify(dataStore.settings);
+  value = textEncoder.encode(value);
+  // Send the values to the BLE device
+  settingsCharacteristic.writeValue(value)
+  .catch(e => {
+    console.log(e);
+  });
 }
 
-const onStatusUpdate = (event) => {
-  const value = textDecoder.decode(event.target.value);
-  console.log(value);
-};
-
-export async function connectToESP() {
+export async function connectDevice() {
   const espStore = useEspStore();
-
+  // Throw an error if the browser does not support bluetooth
   if (!navigator.bluetooth) {
     espStore.supported = false;
     return;
@@ -55,24 +55,25 @@ export async function connectToESP() {
         { name: 'OpenX-ETP-Inst' },
       ],
     };
-
-    const device = await navigator.bluetooth.requestDevice(options);
-
+    // Connect to the BLE device and set the disconnect event listener
+    device = await navigator.bluetooth.requestDevice(options);
     device.addEventListener('gattserverdisconnected', onDisconnected);
-
     const server = await device.gatt.connect();
     const service = await server.getPrimaryService(serviceUUID);
-    writeGATTCharacteristic = await service.getCharacteristic(bleCharacteristicTX);
-    const notificationGATTCharacteristic = await service.getCharacteristic(bleCharacteristicRX);
-
-    notificationGATTCharacteristic.startNotifications()
-      .then(() => {
-      notificationGATTCharacteristic.addEventListener('characteristicvaluechanged', onStatusUpdate);
-    });
-
+    // Grab the 'settings' characteristic from the BLE device
+    settingsCharacteristic = await service.getCharacteristic(settingsCharacteristicUUID);
     espStore.connected = true;
+    readSettings();
   } catch (e) {
     espStore.connected = false;
     console.log(e);
   }
+}
+
+export function disconnectDevice() {
+  const espStore = useEspStore();
+  // Exit if the device is already disconnected
+  if (!espStore.connected) return;
+  device.gatt.disconnect();
+  espStore.connected = false;
 }

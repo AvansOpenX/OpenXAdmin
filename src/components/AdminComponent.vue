@@ -1,5 +1,11 @@
 <template>
-  <div class="p-2 pb-5 mt-4 d-flex flex-column gap-4">
+  <div class="p-2 pb-5 mt-2 d-flex flex-column gap-4">
+    <section>
+      <h2>BLE Pincode</h2>
+      <div class="d-flex flex-row gap-2 align-items-center">
+        <input type="text" class="rounded form-control w-100" maxlength="6" v-model="settings.pin" />
+      </div>
+    </section>
     <section>
       <h1>
         Plant instellingen
@@ -86,7 +92,9 @@
     methods: {
       async save() {
         try {
-          await writeSettings();
+          const dataStore = useDataStore();
+          if (dataStore.settings.pin.length == 6) await writeSettings();
+          else alert("Vul een geldige BLE pincode in");
         } catch (e) {
           alert(e.message);
         }

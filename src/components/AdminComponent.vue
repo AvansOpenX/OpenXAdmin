@@ -41,12 +41,34 @@
           </div>
         </div>
         <div>
+          <h2>Maximale batterijduur</h2>
+          <div class="d-flex flex-row gap-2 align-items-center">
+            <input type="number" class="rounded form-control" v-model="settings.battDrain" />
+            <p class="mb-0">Minuten</p>
+          </div>
+        </div>
+        <div>
+          <h2>Minimale aantal zonuren</h2>
+          <div class="d-flex flex-row gap-2 align-items-center">
+            <input type="number" max="24" class="rounded form-control" v-model="settings.sunHours" />
+            <p class="mb-0">Uur</p>
+          </div>
+        </div>
+        <div>
+          <h2>Actieve periode</h2>
+          <div class="d-flex flex-row gap-2 align-items-center">
+            <input type="number" min="0" max="24" class="rounded form-control" v-model="settings.activeStart" />
+            <input type="number" min="0" max="24" class="rounded form-control" v-model="settings.activeEnd" />
+          </div>
+        </div>
+        <div>
           <h2>Data verzend interval</h2>
           <div class="d-flex flex-row gap-2 align-items-center">
             <input type="number" class="rounded form-control" v-model="settings.tInterval" />
             <p class="mb-0">Minuten</p>
           </div>
         </div>
+        
       </div>
     </section>
     <section>

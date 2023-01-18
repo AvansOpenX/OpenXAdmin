@@ -5,10 +5,9 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // base: '/openx-admin/',
   plugins: [vue()],
-  build: {
-	outDir: 'docs',
-  },
+  build: { outDir: 'dist' },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

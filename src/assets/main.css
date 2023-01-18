@@ -2,6 +2,7 @@
   color: #616161;
   font-family: 'Resist Sans Text';
   font-weight: 400;
+  overflow-x: none;
 }
 
 #app {
@@ -13,15 +14,6 @@ a {
   text-decoration: none;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-}
-
-section {
-  margin: 35px;
-}
-
 h1 {
   font-size: 24px;
   font-weight: 400;
@@ -29,7 +21,7 @@ h1 {
 
 i {
   color: #A5D19E;
-  font-size: 55px;
+  font-size: 26px;
   transition: .25s ease;
 }
 
@@ -38,11 +30,11 @@ button > i {
 }
 
 .card-header > a {
-  padding: 16px;
+  padding: 0px;
 }
 
 .card-header h3 {
-  font-size: 44px;
+  font-size: 20px;
   font-weight: 400;
 }
 
@@ -52,12 +44,12 @@ a[aria-expanded="true"] > i {
 
 .flex-row > input {
   width: 50%;
-  padding: 15px 30px 15px 30px;
-  font-size: 35px;
+  padding: 5px 5px 5px 10px;
 }
 
-.flex-row > p {
-  font-size: 38px;
+.disclaimer-text {
+  font-size: 14px;
+  color: #8f8f8f;
 }
 
 nav {
@@ -75,18 +67,35 @@ nav > button {
   margin-right: 24px;
 }
 
+h2 {
+  font-size: 13px;
+}
+
 nav b {
   color: white;
 }
 
-#save-button.show {
-  right: 100px;
+#connectButton {
+  background-color: #A5D19E;
+  border-radius: 100px;
+  width: 110px;
+  height: 110px;
 }
 
-#save-button {
+#connectButton > i {
+  font-size: 65px;
+}
+
+#saveButton.show {
+  right: 40px;
+}
+
+#saveButton {
   transition: .5s ease;
   right: -130px;
-  bottom: 100px;
+  bottom: 20px;
   position: fixed;
-  padding: 33px;
+  width: 60px;
+  height: 60px;
+  background-color: #A5D19E;
 }

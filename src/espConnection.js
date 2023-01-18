@@ -34,14 +34,18 @@ export async function writeSettings() {
   let value = JSON.stringify(dataStore.settings);
   value = textEncoder.encode(value);
   // Send the values to the BLE device
+  espStore.loading = true;
   settingsCharacteristic.writeValue(value)
   .catch(e => {
     console.log(e);
+  }).finally(e => {
+    espStore.loading = false;
   });
 }
 
 export async function connectDevice() {
   const espStore = useEspStore();
+  espStore.loading = true;
   // Throw an error if the browser does not support bluetooth
   if (!navigator.bluetooth) {
     espStore.supported = false;
@@ -68,6 +72,8 @@ export async function connectDevice() {
     espStore.connected = false;
     console.log(e);
   }
+
+  espStore.loading = false;
 }
 
 export function disconnectDevice() {
